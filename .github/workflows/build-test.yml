@@ -14,7 +14,6 @@ jobs:
         uses: actions/setup-go@v3
         with:
           go-version: ${{ matrix.go-version }}
-          cache: true
       - name: Fetch deps
         run: make -f ci/Makefile deps
       - name: Build
