@@ -3,9 +3,10 @@ package testthings_test
 import (
 	"testing"
 
-	"github.com/jahkeup/testthings"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/jahkeup/testthings"
 )
 
 type logged struct {
@@ -18,8 +19,8 @@ func (l *logged) Log(args ...any) {
 
 func TestLogKV(t *testing.T) {
 	kv := testthings.KV{
-		"foo": "bar",
-		"baz": "qux",
+		"foo":  "bar",
+		"baz":  "qux",
 		"test": "value",
 	}
 	logger := &logged{}
@@ -71,8 +72,8 @@ func TestFormatKV(t *testing.T) {
 		})
 		t.Run("comma+space", func(t *testing.T) {
 			actual := testthings.FormatKV("%v=%q, ", testthings.KV{
-				"foo": "bar",
-				"baz": "qux",
+				"foo":  "bar",
+				"baz":  "qux",
 				"neat": "o",
 			})
 			assert.NotEmpty(t, actual)
@@ -81,15 +82,14 @@ func TestFormatKV(t *testing.T) {
 
 		t.Run("tab", func(t *testing.T) {
 			actual := testthings.FormatKV("%v=%q\t", testthings.KV{
-				"foo": "bar",
-				"baz": "qux",
+				"foo":  "bar",
+				"baz":  "qux",
 				"neat": "o",
 			})
 			assert.NotEmpty(t, actual)
 			assert.Equal(t, `baz="qux"	foo="bar"	neat="o"`, actual)
 		})
 	})
-
 
 	t.Run("style", func(t *testing.T) {
 		actual := testthings.KV{

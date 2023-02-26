@@ -113,7 +113,7 @@ var defaultInterceptor = newInterceptor(nil, nil)
 func newInterceptor(stringHandler func(any) string, gostringHandler func(any) string) interceptorFactory {
 	return func(v any) interceptorInstance {
 		return formatInterception{
-			Value:           v,
+			Value: v,
 
 			StringHandler:   stringHandler,
 			GoStringHandler: gostringHandler,

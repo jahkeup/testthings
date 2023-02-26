@@ -7,16 +7,17 @@ import (
 	"testing"
 	"testing/fstest"
 
-	"github.com/jahkeup/testthings"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/jahkeup/testthings"
 )
 
 func TestSkeletonFS(t *testing.T) {
 	t.Run("readonly files", func(t *testing.T) {
 		skel := &fstest.MapFS{
 			"foo/bar.readonly": &fstest.MapFile{
-				Data:    []byte{},
-				Mode:    0444,
+				Data: []byte{},
+				Mode: 0444,
 			},
 		}
 
@@ -29,12 +30,12 @@ func TestSkeletonFS(t *testing.T) {
 	t.Run("happy path", func(t *testing.T) {
 		skel := fstest.MapFS{
 			"foo/etc/baz.conf": &fstest.MapFile{
-				Data:    []byte(`some data`),
+				Data: []byte(`some data`),
 				Mode: 0, // should be minimumFilePerm
 			},
 			"foo/share/baz.bin": &fstest.MapFile{
-				Data:    []byte(`some data`),
-				Mode: 	 0444,
+				Data: []byte(`some data`),
+				Mode: 0444,
 			},
 			"foo/bin/baz.sh": &fstest.MapFile{
 				Data: []byte(`#!/usr/bin/env sh\nexit 0\n`),
@@ -57,7 +58,7 @@ func TestSkeletonFS(t *testing.T) {
 				actualPerm := info.Mode().Perm()
 				assert.True(t, actualPerm&testthings.MinimumFilePerm == testthings.MinimumFilePerm)
 
-				adjustedPerm := spec.Mode.Perm()|testthings.MinimumFilePerm
+				adjustedPerm := spec.Mode.Perm() | testthings.MinimumFilePerm
 				assert.Equalf(t, adjustedPerm.String(), actualPerm.String(), "for path: %q", path)
 			}
 		}

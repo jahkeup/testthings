@@ -105,7 +105,7 @@ func skeletonInstaller(skelFS fs.FS, dir string) fs.WalkDirFunc {
 		}
 
 		if info.IsDir() {
-			err := os.MkdirAll(installPath(path), info.Mode() | MinimumDirPerm)
+			err := os.MkdirAll(installPath(path), info.Mode()|MinimumDirPerm)
 			if err != nil {
 				return SkeletonInstallError{Path: path, Err: err, fileMode: info.Mode()}
 			}
