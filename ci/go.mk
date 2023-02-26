@@ -2,6 +2,9 @@ GO = go
 GOIMPORTS = goimports -local github.com/jahkeup/testthings
 GOLANGCILINT = golangci-lint
 
+goget:
+	$(GO) get ./...
+
 gobuild:
 	$(GO) build $(GO_BUILD_FLAGS) $(V) ./...
 
