@@ -12,3 +12,9 @@ type Cleanuper interface {
 type Logger interface {
 	Log(args ...any)
 }
+
+// Terminator describes types that can log and terminate the test. In practice,
+// this is really just a scoped-down testing.TB.
+type Terminator interface {
+	Fatal(args ...any)
+}
