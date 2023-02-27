@@ -15,8 +15,8 @@ jobs:
         with:
           go-version: ${{ matrix.go-version }}
       - name: Fetch deps
-        run: make -f ci/Makefile deps
+        run: make -f ci/Makefile --include-dir ci deps
       - name: Build
-        run: make -f ci/Makefile build
+        run: make -f ci/Makefile --include-dir ci build
       - name: Test
-        run: make -f ci/Makefile test
+        run: make -f ci/Makefile --include-dir ci test
