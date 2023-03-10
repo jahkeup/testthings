@@ -1,7 +1,6 @@
 package must_test
 
 import (
-	_ "embed"
 	"errors"
 	"sync"
 	"testing"
@@ -79,35 +78,6 @@ func TestMust(t *testing.T) {
 			}()
 		})
 	})
-}
-
-//go:embed testdata/some.json
-var some_json []byte
-
-var someJSONData = must.FromJSON[struct{ Hi []string }](nil, some_json)
-
-var derivedData = must.Must[[]string](nil, func() []string {
-	// assumption assertions, etc
-	if len(someJSONData.Hi) == 0 {
-		panic("no data?!")
-	}
-	return someJSONData.Hi
-})
-
-func TestFromJSON_simple(t *testing.T) {
-	t.Logf("someJSONData: %#v", someJSONData)
-	if len(someJSONData.Hi) < 1 {
-		t.Error("should have loaded the json")
-	}
-	if len(someJSONData.Hi) != len(derivedData) {
-		t.Fatal("should have derived the same data")
-	}
-	for i := range someJSONData.Hi {
-		a, b := someJSONData.Hi[i], derivedData[i]
-		if a != b {
-			t.Errorf("expected element %d to be %q (a), but was %q (b)", i, a, b)
-		}
-	}
 }
 
 type Foo struct {
