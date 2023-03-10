@@ -1,4 +1,4 @@
-package testthings
+package skeletonfs
 
 import (
 	"errors"
@@ -7,6 +7,8 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+
+	"github.com/jahkeup/testthings"
 )
 
 const (
@@ -64,7 +66,7 @@ func (skel skeletonFS) Install(dir string) error {
 
 // InstallOrFail will install the skeleton into the provided directory. Or.. it
 // fails the test run.
-func (skel skeletonFS) InstallOrFail(testingT Terminator, dir string) {
+func (skel skeletonFS) InstallOrFail(testingT testthings.Terminator, dir string) {
 	err := skel.Install(dir)
 	if err != nil {
 		testingT.Fatal(fmt.Sprintf("skeleton install: %v", err))

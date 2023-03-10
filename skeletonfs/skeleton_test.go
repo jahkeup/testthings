@@ -1,4 +1,4 @@
-package testthings_test
+package skeletonfs_test
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/jahkeup/testthings"
+	"github.com/jahkeup/testthings/skeletonfs"
 )
 
 func TestSkeletonFS(t *testing.T) {
@@ -22,7 +22,7 @@ func TestSkeletonFS(t *testing.T) {
 		}
 
 		installDir := t.TempDir()
-		err := testthings.SkeletonFS(skel).Install(installDir)
+		err := skeletonfs.SkeletonFS(skel).Install(installDir)
 		assert.NoError(t, err)
 		dumpFSPaths(t, os.DirFS(installDir))
 		assert.NoError(t, os.RemoveAll(installDir), "should be able to remove the tree")
@@ -44,7 +44,7 @@ func TestSkeletonFS(t *testing.T) {
 		}
 
 		installDir := t.TempDir()
-		err := testthings.SkeletonFS(skel).Install(installDir)
+		err := skeletonfs.SkeletonFS(skel).Install(installDir)
 		assert.NoError(t, err)
 
 		fsys := os.DirFS(installDir)
@@ -56,9 +56,9 @@ func TestSkeletonFS(t *testing.T) {
 			info, err := fs.Stat(fsys, path)
 			if assert.NoError(t, err, "should be able to stat file") {
 				actualPerm := info.Mode().Perm()
-				assert.True(t, actualPerm&testthings.MinimumFilePerm == testthings.MinimumFilePerm)
+				assert.True(t, actualPerm&skeletonfs.MinimumFilePerm == skeletonfs.MinimumFilePerm)
 
-				adjustedPerm := spec.Mode.Perm() | testthings.MinimumFilePerm
+				adjustedPerm := spec.Mode.Perm() | skeletonfs.MinimumFilePerm
 				assert.Equalf(t, adjustedPerm.String(), actualPerm.String(), "for path: %q", path)
 			}
 		}
